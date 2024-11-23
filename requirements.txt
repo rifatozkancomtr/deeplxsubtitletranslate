@@ -1,0 +1,41 @@
+# Core Libraries
+httpx==0.24.1
+pysrt==1.1.2
+ass==0.5.2
+
+# Optional: Logging and Monitoring
+logging==0.5.1.2
+colorlog==6.7.0
+
+# Optional: Performance and Async
+asyncio==3.4.3
+aiohttp==3.8.4
+
+# Optional: Error Tracking
+sentry-sdk==1.21.1
+
+# Development and Debugging Tools
+pytest==7.3.1
+black==23.3.0
+flake8==6.0.0
+mypy==1.3.0
+
+# Version and Environment Management
+pip==23.1.2
+setuptools==67.7.2
+wheel==0.40.0
+
+# Optional: Configuration Management
+python-dotenv==1.0.0
+
+# Type Hinting
+typing-extensions==4.5.0
+
+# Optional: Performance Monitoring
+psutil==5.9.5
+
+# Recommended: Security
+cryptography==40.0.2
+
+# Recommended: Unicode Handling
+unidecode==1.3.6

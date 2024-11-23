@@ -1,217 +1,120 @@
-Overview
-This Python script is a sophisticated, asynchronous subtitle translation tool designed to automatically translate subtitle files (SRT and ASS formats) from English to Turkish using multiple DeepLX API endpoints.
+# Altyazı Çeviri Otomasyon Aracı  
+**Subtitle Translation Automation Tool**  
 
+Bu Python programı, `.srt` ve `.ass` formatındaki altyazı dosyalarını toplu olarak çevirmek için kullanılır.  
+This Python program is used to batch translate subtitle files in `.srt` and `.ass` formats.  
 
-# Subtitle Translation Automation Script
+Program, **DeepLX API**'lerini kullanarak hızlı ve verimli çeviri yapar ve çevrilen dosyaları kaydeder. Ayrıca eşzamanlılık, hata yönetimi ve çeviri kayıt özellikleri içerir.  
+The program utilizes **DeepLX APIs** for fast and efficient translation, saves the translated files, and includes concurrency, error handling, and logging features.
 
-## Purpose
-This script is designed to automatically translate subtitle files (SRT and ASS formats) from English to Turkish using multiple DeepLX API endpoints, making it easier to localize media content.
+---
 
-## Usage Instructions
+## Özellikler | Features  
 
-### Prerequisites
-- Python 3.8+
-- Install required libraries: `httpx`, `pysrt`, `ass`
+- `.srt` ve `.ass` altyazı formatlarını destekler.  
+  Supports `.srt` and `.ass` subtitle formats.  
+- Eşzamanlı çeviri işlemleriyle hız sağlar.  
+  Provides speed with concurrent translation operations.  
+- Başarısız API isteklerini tespit eder ve optimize eder.  
+  Detects and optimizes failed API requests.  
+- Çevrilen dosyaları takip eder ve gereksiz çevirileri engeller.  
+  Tracks translated files and prevents redundant translations.  
+- Çeviri günlüklerini JSON formatında kaydeder.  
+  Saves translation logs in JSON format.  
 
-### How to Use
-1. Place the script in the directory containing subtitle files
-2. Run the script directly:
-   ```
-   python subtitle_translator.py
-   ```
+---
 
-### Example Scenario
-- Input: `movie_subtitle.en.srt`
-- Output: `movie_subtitle.tr.srt`
+## Gereksinimler | Requirements  
 
-## Features (Türkçe)
+- **Python 3.7+**  
+- Gerekli Python kütüphaneleri:  
+  - `httpx`  
+  - `pysrt`  
+  - `ass`  
 
-### Özellikler
-- Otomatik altyazı çevirisi
-- Birden fazla API endpoint desteği
-- Eş zamanlı çeviri işleme
-- Detaylı hata günlüğü
-- Çeviri durumu takibi
-- Farklı altyazı formatları desteği
+Program eksik kütüphaneleri otomatik olarak yükler.  
+The program automatically installs missing libraries.
 
-## Features (English)
+---
 
-### Key Capabilities
-- Automatic subtitle translation
-- Multiple API endpoint support
-- Concurrent translation processing
-- Detailed error logging
-- Translation status tracking
-- Support for different subtitle formats
+## Kurulum | Installation  
 
-## Technical Details
+1. Bu repository'i klonlayın:  
+   Clone this repository:  
+   ```bash
+   git clone https://github.com/username/repository.git
+   cd repository
 
-### Translation Process
-1. Detect subtitle files in the directory
-2. Clean and extract text
-3. Send text to DeepLX API
-4. Translate in batches
-5. Preserve original subtitle timing
-6. Save translated subtitles
+## Kullanım | Usage  
 
-### API Management
-- Intelligent API selection
-- Performance tracking
-- Cooldown mechanism
-- Failure handling
+### 1. Çalıştırma Komutunu Kullanma | Using the Run Command  
 
-## Example Workflow
+Programı çalıştırmak için aşağıdaki komutu kullanın:  
+To run the program, use the following command:  
 
-```
-Input Directory:
-- movie1.en.srt
-- series.en.ass
-- documentary.en.srt
+```bash""
+python translate.py
 
-Running Script ->
+## 2. Dosya Taraması ve Çeviri | File Scanning and Translation
 
-Output Directory:
-- movie1.tr.srt
-- series.tr.ass
-- documentary.tr.srt
-```
+- Program, çalışma dizinindeki tüm `.srt` ve `.ass` altyazı dosyalarını otomatik olarak tarar.  
+  *The program automatically scans all `.srt` and `.ass` subtitle files in the working directory.*
 
-## Limitations
-- Requires local DeepLX API setup
-- Limited to English to Turkish translation
-- Dependent on API availability
+- Uygun dosyalar çeviri işlemine alınır.  
+  *Suitable files are processed for translation.*
 
-## Recommended Use Cases
-- Personal media library localization
-- Subtitle translation for educational content
-- Multilingual content preparation
+---
 
-## Performance Metrics
-- Concurrent translations: Configurable
-- API endpoint management
-- Real-time progress tracking
+## 3. Çevrilen Dosyaların Kaydedilmesi | Saving Translated Files
 
-## Configuration Options
-- Modify `DEEPLX_API_URLS` for custom endpoints
-- Adjust `MAX_CONCURRENT_TRANSLATIONS`
-- Configure logging settings
+- Çevrilen dosyalar aynı dizine kaydedilir, dosya adı uzantısı dil kodunu içerecek şekilde güncellenir.  
+  *Translated files are saved in the same directory, with the filename updated to include the language code.*
 
-## Potential Improvements
-- Multi-language support
-- Advanced caching
-- More robust error handling
-- Additional API provider integration
+### Örnekler | Examples:
 
-## Security Considerations
-- Use secure API key management
-- Implement rate limiting
-- Handle API endpoint failures gracefully
+```plaintext
+example.en.srt → example.tr.srt  
+video.ass → video.tr.ass
 
-## Contribution
-Feel free to fork, improve, and submit pull requests to enhance the script's functionality.
+## 4. Çalışma Akışı | Workflow
 
+### Başlangıç | Start
 
-# Altyazı Çeviri Otomasyonu Komut Dosyası
+- Program çalıştırıldığında, dizindeki mevcut altyazı dosyaları kontrol edilir.  
+  *When the program runs, it checks for existing subtitle files in the directory.*
 
-## Amaç
-Bu komut dosyası, medya içeriğini yerelleştirmeyi kolaylaştırmak için DeepLX API uç noktalarını kullanarak altyazı dosyalarını (SRT ve ASS formatları) İngilizceden Türkçeye otomatik olarak çevirmeye tasarlanmıştır.
+---
 
-## Kullanım Talimatları
+### Çeviri İşlemi | Translation Process
 
-### Ön Gereksinimler
-- Python 3.8+
-- Gerekli kütüphaneleri yükleyin: `httpx`, `pysrt`, `ass`
+#### 1. **API Kullanımı | API Usage**
 
-### Nasıl Kullanılır
-1. Komut dosyasını altyazı dosyalarını içeren dizine yerleştirin
-2. Komut dosyasını doğrudan çalıştırın:
-   ```
-   python subtitle_translator.py
-   ```
+- DeepLX API'yi kullanarak metinleri çevirir.  
+  *Translates texts using the DeepLX API.*  
+- Başarısız API istekleri otomatik olarak yeniden denenir.  
+  *Failed API requests are automatically retried.*
 
-### Örnek Senaryo
-- Girdi: `film_altyazi.en.srt`
-- Çıktı: `film_altyazi.tr.srt`
+#### 2. **Dosya Formatlama | File Formatting**
 
-## Özellikler
+- `.srt` ve `.ass` dosya biçimleri doğru bir şekilde işlenir.  
+  *Properly processes `.srt` and `.ass` file formats.*
 
-### Teknik Özellikler
-- Otomatik altyazı çevirisi
-- Birden fazla API uç noktası desteği
-- Eş zamanlı çeviri işleme
-- Detaylı hata günlüğü
-- Çeviri durumu takibi
-- Farklı altyazı formatları desteği
+#### 3. **Günlükler | Logs**
 
-### Çeviri Süreci
-1. Dizindeki altyazı dosyalarını tespit etme
-2. Metni temizleme ve çıkarma
-3. Metni DeepLX API'sine gönderme
-4. Toplu çeviri yapma
-5. Orijinal altyazı zamanlamasını koruma
-6. Çevrilen altyazıları kaydetme
+- Çeviri bilgileri `translation_log.json` dosyasına kaydedilir.  
+  *Translation details are saved in the `translation_log.json` file.*
 
-### API Yönetimi
-- Akıllı API seçimi
-- Performans takibi
-- Bekleme mekanizması
-- Hata işleme
+---
 
-## Örnek İş Akışı
+### Çeviri Tamamlandığında | Upon Completion
 
-```
-Girdi Dizini:
-- film1.en.srt
-- dizi.en.ass
-- belgesel.en.srt
+- Başarıyla çevrilen dosyalar, hata oluşan dosyalardan ayrı olarak kaydedilir.  
+  *Successfully translated files are saved separately from files with errors.*
 
-Komut Dosyasını Çalıştırma ->
+- Program sonunda bir özet verir:  
+  *At the end, the program provides a summary:*
 
-Çıktı Dizini:
-- film1.tr.srt
-- dizi.tr.ass
-- belgesel.tr.srt
-```
-
-## Sınırlamalar
-- Yerel DeepLX API kurulumu gerektirir
-- Yalnızca İngilizceden Türkçeye çeviri
-- API kullanılabilirliğine bağlıdır
-
-## Önerilen Kullanım Alanları
-- Kişisel medya kütüphanesi yerelleştirmesi
-- Eğitim içeriği için altyazı çevirisi
-- Çok dilli içerik hazırlama
-
-## Performans Ölçümleri
-- Eş zamanlı çeviriler: Yapılandırılabilir
-- API uç noktası yönetimi
-- Gerçek zamanlı ilerleme takibi
-
-## Yapılandırma Seçenekleri
-- Özel uç noktalar için `DEEPLX_API_URLS`'yi değiştirin
-- `MAX_CONCURRENT_TRANSLATIONS`'ı ayarlayın
-- Günlük kayıt ayarlarını yapılandırın
-
-## Olası İyileştirmeler
-- Çoklu dil desteği
-- Gelişmiş önbellek
-- Daha sağlam hata işleme
-- Ek API sağlayıcı entegrasyonu
-
-## Güvenlik Hususları
-- Güvenli API anahtarı yönetimi
-- Hız sınırlaması uygulama
-- API uç nokta hatalarını zarif bir şekilde işleme
-
-## Katkı
-Çatallamak, geliştirmek ve pull request göndermek için çekinmeyin.
-
-## Lisans
-[Uygun Lisans Bilgisi]
-
-## İletişim
-Herhangi bir soru veya geri bildirim için info@rifat.org
-
-## License
-Open-source project - Contributions welcome!
+  - **Çevrilen dosya sayısı**  
+    *Number of translated files*  
+  - **Atlanan veya hata veren dosyalar**  
+    *Skipped or errored files*
